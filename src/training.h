@@ -57,30 +57,17 @@ using namespace std;
 using namespace cv;
 using namespace cv::ml;
 
-string trainImage = "mnist_dataset/train-images.idx3-ubyte";
-string trainLabel = "mnist_dataset/train-labels.idx1-ubyte";
-string testImage = "mnist_dataset/t10k-images.idx3-ubyte";
-string testLabel = "mnist_dataset/t10k-labels.idx1-ubyte";
-
-//计时器
-double cost_time_;
-clock_t start_time_;
-clock_t end_time_;
-
 class Training
 {
 public:
     Training();
     Mat readImages(int opt);
     Mat readLabels(int opt);
-    //读取image数据集信息
-    Mat read_mnist_image(const string fileName);
-
-    //读取label数据集信息
-    Mat read_mnist_label(const string fileName);
 
     void knnTrain();
-    void testMnist();
+    void svmTrain();
+
+    void testMnistKNN();
     void testMnistSVM();
     int reverseDigit(int num);
 };
