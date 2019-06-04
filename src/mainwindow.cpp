@@ -20,17 +20,26 @@ void MainWindow::changeEvent(QEvent *e)
     }
 }
 
-
-void MainWindow::on_ButtonTrain_clicked()
+void MainWindow::on_buttonTrainKNN_clicked()
 {
     train->knnTrain();
-    train->testMnist();
+    qDebug()<<"KNN train done";
+}
+
+void MainWindow::on_buttonTestKNN_clicked()
+{
+    train->testMnistKNN();
     qDebug()<<"All done";
 }
 
-void MainWindow::on_ButtonTest_clicked()
+void MainWindow::on_buttonSVMTrain_clicked()
 {
+    train->svmTrain();
+    qDebug()<<"SVM train done";
+}
 
-    train->testMnist();
+void MainWindow::on_buttonSVMTest_clicked()
+{
+    train->testMnistSVM();
     qDebug()<<"All done";
 }

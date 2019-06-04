@@ -15,10 +15,10 @@ protected:
     void changeEvent(QEvent *e);
 
 private slots:
-    void on_ButtonTrain_clicked();
-
-    void on_ButtonTest_clicked();
-
+    void on_buttonTrainKNN_clicked();
+    void on_buttonTestKNN_clicked();
+    void on_buttonSVMTrain_clicked();
+    void on_buttonSVMTest_clicked();
 private:
     Ui::MainWindow ui;
     Training *train;
