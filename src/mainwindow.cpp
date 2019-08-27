@@ -28,7 +28,7 @@ void MainWindow::on_buttonTrainKNN_clicked()
 
 void MainWindow::on_buttonTestKNN_clicked()
 {
-    train->testMnistKNN();
+    ui.doubleSpinBox->setValue(train->testMnistKNN());
     qDebug()<<"All done";
 }
 
@@ -40,6 +40,6 @@ void MainWindow::on_buttonSVMTrain_clicked()
 
 void MainWindow::on_buttonSVMTest_clicked()
 {
-    train->testMnistSVM();
+    ui.doubleSpinBox->setValue(train->testMnistSVM());
     qDebug()<<"All done";
 }

@@ -25,8 +25,7 @@ ui_*.h
 Makefile*
 *-build-*
 build-*
-*-Debug
-*-Release
+*-build
 
 # QtCreator
 
@@ -35,3 +34,5 @@ build-*
 #QtCtreator Qml
 *.qmlproject.user
 *.qmlproject.user.*
+
+src/OpenCV4.1.0/

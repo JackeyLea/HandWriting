@@ -23,14 +23,25 @@ LIBS += \
         -lopencv_imgcodecs -lopencv_imgproc -lopencv_ml
 }
 
+win32:{
+INCLUDEPATH += $$PWD/OpenCV4.1.0/include
+
+LIBS += -L$$PWD/OpenCV4.1.0/bin \
+        -lopencv_core410 \
+        -lopencv_dnn410 \
+        -lopencv_highgui410 \
+        -lopencv_imgcodecs410 \
+        -lopencv_imgproc410 \
+        -lopencv_ml410
+}
+
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-        training.cpp
+        mainwindow.cpp
 
 HEADERS += \
         mainwindow.h \
-        training.h
+        training.hpp
 
 FORMS += \
         mainwindow.ui
