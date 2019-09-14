@@ -24,15 +24,15 @@ LIBS += \
 }
 
 win32:{
-INCLUDEPATH += $$PWD/OpenCV4.1.0/include
+INCLUDEPATH += C:\Libraries\opencv\build\include
 
-LIBS += -L$$PWD/OpenCV4.1.0/bin \
-        -lopencv_core410 \
-        -lopencv_dnn410 \
-        -lopencv_highgui410 \
-        -lopencv_imgcodecs410 \
-        -lopencv_imgproc410 \
-        -lopencv_ml410
+LIBS += -LC:\Libraries\opencv\build\x64\mingw\bin \
+        -lopencv_core411 \
+        -lopencv_dnn411 \
+        -lopencv_highgui411 \
+        -lopencv_imgcodecs411 \
+        -lopencv_imgproc411 \
+        -lopencv_ml411
 }
 
 SOURCES += \
