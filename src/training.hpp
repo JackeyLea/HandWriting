@@ -85,7 +85,7 @@ public:
         ifstream f;
         Mat img;
         if(opt == 0){
-            qDebug() << "Reading training data ...";
+            qDebug() << "读取训练图像数据中 ...";
 #ifdef Q_OS_WIN
         f.open("train-images.idx3-ubyte",ios::binary);
 #elif define(Q_OS_UNIX)
@@ -93,7 +93,7 @@ public:
 #endif
         }
         else{
-            qDebug() << "Reading test data ...";
+            qDebug() << "读取测试图像数据中 ...";
 #ifdef Q_OS_WIN
         f.open("t10k-images.idx3-ubyte",ios::binary);
 #elif define(Q_OS_UNIX)
@@ -102,7 +102,7 @@ public:
         }
         // check file
         if (!f.is_open()){
-            qDebug() << "Images File Not Found!";
+            qDebug() << "未找到图像数据!";
             return img;
         }
         /*
@@ -122,7 +122,7 @@ public:
         f.read((char*)&number_of_images, sizeof(number_of_images));
 
         number_of_images = reverseDigit(number_of_images);
-        qDebug()<<"Number of images is: "<<number_of_images;
+        qDebug()<<"图像数据量为: "<<number_of_images;
 
         f.read((char*)&height, sizeof(height));
         height = reverseDigit(height);
@@ -161,7 +161,7 @@ public:
         ifstream f;
         Mat img;
         if(opt == 0){
-            qDebug() << "Reading training data ...";
+            qDebug() << "读取训练标签数据中 ...";
 #ifdef Q_OS_WIN
         f.open("train-labels.idx1-ubyte");
 #elif define(Q_OS_UNIX)
@@ -169,7 +169,7 @@ public:
 #endif
         }
         else{
-            qDebug() << "Reading test data ...";
+            qDebug() << "读取测试标签数据中 ...";
 #ifdef Q_OS_WIN
         f.open("t10k-labels.idx1-ubyte");
 #elif define(Q_OS_UNIX)
@@ -178,7 +178,7 @@ public:
         }
          // check file
         if (!f.is_open()){
-            qDebug() << "Labels File Not Found!";
+            qDebug() << "未找到标签数据文件!";
             return img;
         }
         /*
@@ -192,7 +192,7 @@ public:
 
         f.read((char*)&number_of_labels, sizeof(number_of_labels));
         number_of_labels = reverseDigit(number_of_labels);
-        qDebug() << "No. of labels:" << number_of_labels ;
+        qDebug() << "标签数据量为: " << number_of_labels ;
 
         Mat labels = Mat(number_of_labels, 1, CV_8UC1);
         for (long int i = 0; i<number_of_labels; ++i){
@@ -211,12 +211,12 @@ public:
     */
     void knnTrain()
     {
-        qDebug()<<"KNN train starting";
+        qDebug()<<"KNN训练开始 ...";
         Mat train_images = readImages(0);
         if(train_images.size==0) return;
         Mat train_labels = readLabels(0);
         if(train_labels.size ==0) return;
-        qDebug()<<"read mnist train dataset successfully...";
+        qDebug()<<"已成功读取MNIST数据集 ...";
 
         Ptr<ml::KNearest> knn = ml::KNearest::create();
         knn->setDefaultK(5);
@@ -228,17 +228,17 @@ public:
 #elif define(Q_OS_UNIX)
         knn->save("knn.xml");
 #endif
-        qDebug()<<"KNN train data has been saved successfully";
+        qDebug()<<"KNN训练数据已成功保存";
     }
 
     void svmTrain()
     {
-        qDebug()<<"SVM training starting";
+        qDebug()<<"SVM训练开始 ...";
         Mat train_images = readImages(0);
         if(train_images.size ==0) return;
         Mat train_labels = readLabels(0);
         if(train_labels.size ==0) return;
-        qDebug()<<"Read mnist test dataset successfully...";
+        qDebug()<<"已成功读取MNIST数据集 ...";
 
         Ptr<ml::SVM> svm = ml::SVM::create();
         svm->setDegree(5);
@@ -249,14 +249,14 @@ public:
 #elif define(Q_OS_UNIX)
         svm->save(svmSaveUnix);
 #endif
-        qDebug()<<"SVM train file has been saved";
+        qDebug()<<"SVM训练数据已保存";
     }
 
     float testMnistKNN()
     {
         QFile file(QString::fromStdString("knn.xml"));
         if(!file.exists()){
-            qDebug()<<"No knn result file\nApplication exit";
+            qDebug()<<"未找到KNN训练结果\n退出中 ...";
             return 0;
         }
         qDebug()<<"开始KNN测试";
@@ -268,7 +268,7 @@ public:
 
         Mat train_images = readImages(1);
         Mat train_labels = readLabels(1);
-        qDebug()<<"Read mnist test dataset successfully...";
+        qDebug()<<"成功读取MNIST测试数据...";
 
         float total = train_images.rows;
 
@@ -289,8 +289,9 @@ public:
             }
         }
 
+        qDebug()<<"已成功识别 : "<<correct;
         float rate = correct /total *100.0;
-        qDebug()<<"Recognize rate is: "<<rate;
+        qDebug()<<"识别准确率为: "<<rate;
 
         return rate;
     }
@@ -299,7 +300,7 @@ public:
     {
         QFile file(QString::fromStdString("svm.xml"));
         if(!file.exists()){
-            qDebug()<<"No svm result file\nApplication exit";
+            qDebug()<<"未找到SVM训练数据\n退出";
             return 0.0;
         }
         qDebug() << "开始导入SVM文件...";
@@ -323,9 +324,9 @@ public:
             res = std::abs(res - tLabel.at<unsigned int>(i, 0)) <= FLT_EPSILON ? 1.f : 0.f;
             count += res;
         }
-        qDebug() << "正确的识别个数 count = " << count << endl;
+        qDebug() << "正确的识别个数 count = " << count;
         float rate = (10000-count +0.0)/10000*100.0;
-        qDebug() << "错误率为..." << rate<< "%....";
+        qDebug() << "准确率为：" << rate<< "%....";
 
         return rate;
     }
