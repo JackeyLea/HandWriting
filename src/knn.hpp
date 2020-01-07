@@ -1,11 +1,11 @@
 #ifndef KNN_HPP
 #define KNN_HPP
 
-
 #include <QString>
 #include <QDebug>
 #include <QFile>
 #include <QDir>
+#include <QThread>
 
 #include <opencv2/opencv.hpp>
 

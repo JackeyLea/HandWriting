@@ -5,9 +5,12 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
+#include <QTime>
 
 #include "svm.hpp"
 #include "knn.hpp"
+
+#include "sys/time.h"
 
 class MainWindow : public QMainWindow
 {
@@ -15,6 +18,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
 
 private slots:
     void on_buttonSVMTrain_clicked();
@@ -28,6 +32,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    double time_start;
+    double time_end;
     SVMTT *svmtt;
     KNNTT *knntt;
 };
