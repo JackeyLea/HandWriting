@@ -88,15 +88,18 @@ public:
             qDebug() << "读取训练图像数据中 ...";
 #ifdef Q_OS_WIN
         f.open("train-images.idx3-ubyte",ios::binary);
-#elif define(Q_OS_UNIX)
-        f.open(trainImagesUnix,ios::binary);
 #endif
+#ifdef Q_OS_UNIX
+        f.open(trainImageUnix,ios::binary);
+#endif
+
         }
         else{
             qDebug() << "读取测试图像数据中 ...";
 #ifdef Q_OS_WIN
         f.open("t10k-images.idx3-ubyte",ios::binary);
-#elif define(Q_OS_UNIX)
+#endif
+#ifdef Q_OS_UNIX
         f.open(testImagesUnix,ios::binary);
 #endif
         }
@@ -150,7 +153,7 @@ public:
         //            imwrite(format("/home/jackey/GitHub/OpenCV-MNIST/data/images/digit_%d.png", i), digitImg);
         //       }
         }
-        train_images.convertTo(train_images, CV_32FC1);
+        train_images.convertTo(train_images, CV_32F);
 
         f.close();
         return train_images;
@@ -164,7 +167,8 @@ public:
             qDebug() << "读取训练标签数据中 ...";
 #ifdef Q_OS_WIN
         f.open("train-labels.idx1-ubyte");
-#elif define(Q_OS_UNIX)
+#endif
+#ifdef Q_OS_UNIX
         f.open(trainLabelsUnix);
 #endif
         }
@@ -172,7 +176,8 @@ public:
             qDebug() << "读取测试标签数据中 ...";
 #ifdef Q_OS_WIN
         f.open("t10k-labels.idx1-ubyte");
-#elif define(Q_OS_UNIX)
+#endif
+#ifdef Q_OS_UNIX
         f.open(testLabelsUnix);
 #endif
         }
@@ -201,7 +206,7 @@ public:
             //printf("temp : %d\n ", temp);
             labels.at<uchar>(i, 0) = temp;
         }
-        labels.convertTo(labels, CV_32SC1);
+        labels.convertTo(labels, CV_32S);
 
         f.close();
         return labels;
@@ -209,44 +214,51 @@ public:
     /*我们不使用提取特征方式，而是采用纯像素数据作为输入，分别使用KNN与SVM对数据集进行训练与测试，比较他们的正确率
       KNN是最简单的机器学习方法、主要是计算目标与模型之间的空间向量距离得到最终预测分类结果。
     */
-    void knnTrain()
+    bool knnTrain()
     {
         qDebug()<<"KNN训练开始 ...";
         Mat train_images = readImages(0);
-        if(train_images.size==0) return;
+        if(train_images.size==0) return false;
         Mat train_labels = readLabels(0);
-        if(train_labels.size ==0) return;
+        if(train_labels.size ==0) return false;
         qDebug()<<"已成功读取MNIST数据集 ...";
 
         Ptr<ml::KNearest> knn = ml::KNearest::create();
+        Ptr<ml::TrainData> tdata = ml::TrainData::create(train_images,ml::ROW_SAMPLE,train_labels);
+        knn->train(tdata);
         knn->setDefaultK(5);
         knn->setIsClassifier(true);
-        Ptr<ml::TrainData> tdata = ml::TrainData::create(train_images, ml::ROW_SAMPLE, train_labels);
-        knn->train(tdata);
+
 #ifdef Q_OS_WIN
         knn->save("knn.xml");
-#elif define(Q_OS_UNIX)
+#endif
+#ifdef Q_OS_UNIX
         knn->save("knn.xml");
 #endif
         qDebug()<<"KNN训练数据已成功保存";
+
+        return true;
     }
 
-    void svmTrain()
+    bool svmTrain()
     {
         qDebug()<<"SVM训练开始 ...";
         Mat train_images = readImages(0);
-        if(train_images.size ==0) return;
+        if(train_images.size ==0) return false;
         Mat train_labels = readLabels(0);
-        if(train_labels.size ==0) return;
+        if(train_labels.size ==0) return false;
         qDebug()<<"已成功读取MNIST数据集 ...";
 
         Ptr<ml::SVM> svm = ml::SVM::create();
+        svm->setType(SVM::C_SVC);
+        svm->setKernel(SVM::LINEAR);
         svm->setDegree(5);
         Ptr<ml::TrainData> tdata = ml::TrainData::create(train_images,ml::ROW_SAMPLE,train_labels);
         svm->train(tdata);
 #ifdef Q_OS_WIN
         svm->save("svm.xml");
-#elif define(Q_OS_UNIX)
+#endif
+#ifdef Q_OS_UNIX
         svm->save(svmSaveUnix);
 #endif
         qDebug()<<"SVM训练数据已保存";
@@ -262,7 +274,8 @@ public:
         qDebug()<<"开始KNN测试";
 #ifdef Q_OS_WIN
         Ptr<ml::KNearest> knn = Algorithm::load<ml::KNearest>("knn.xml"); // KNN - 97%
-#elif define(Q_OS_UNIX)
+#endif
+#ifdef Q_OS_UNIX
         Ptr<ml::KNearest> knn = Algorithm::load<ml::KNearest>(knnSaveUnix);
 #endif
 
@@ -306,7 +319,8 @@ public:
         qDebug() << "开始导入SVM文件...";
 #ifdef Q_OS_WIN
         Ptr<SVM> svm1 = StatModel::load<SVM>("svm.xml");
-#elif define(Q_OS_UNIX)
+#endif
+#ifdef Q_OS_UNIX
         Ptr<SVM> svm1 = StatModel::load<SVM>(svmSaveUnix);
 #endif
 
