@@ -35,4 +35,4 @@ build-*
 *.qmlproject.user
 *.qmlproject.user.*
 
-src/OpenCV4.1.0/
+temp/
