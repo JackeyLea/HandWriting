@@ -52,8 +52,7 @@ SOURCES += \
 HEADERS += \
     knn.hpp \
     mainwindow.h \
-    svm.hpp \
-    training.hpp
+    svm.hpp
 
 FORMS += \
     mainwindow.ui

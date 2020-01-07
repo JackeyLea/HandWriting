@@ -66,7 +66,7 @@ public:
 
         return ((int)c1<<24)+((int)c2<<16)+((int)c3<<8)+c4;
     }
-
+    //读取图像数据集
     Mat readImages(int opt){
         ifstream f;
         Mat img;
@@ -82,6 +82,12 @@ public:
             qDebug()<<"无法读取图像数据";
             exit(1);
         }
+        /*
+         byte 0 - 3 : Magic Number(Not to be used)
+         byte 4 - 7 : Total number of images in the dataset
+         byte 8 - 11 : rows of each image in the dataset
+         byte 12 - 15 : cols of each image in the dataset
+        */
         int magic_number = 0;
         int number_of_images = 0;
         int height=0;
@@ -113,12 +119,16 @@ public:
                     digitImg.at<uchar>(r,c)=(int)temp;
                 }
             }
+            //       if (i < 100) {
+            //           qDebug()<<"Reading image: "<<i<<" done";
+            //            imwrite(format("/home/jackey/GitHub/OpenCV-MNIST/data/images/digit_%d.png", i), digitImg);
+            //       }
         }
         train_images.convertTo(train_images,CV_32F);
         f.close();
         return train_images;
     }
-
+//读取标记数据集
     Mat readLabels(int opt){
         ifstream f;
         Mat img;
@@ -133,7 +143,10 @@ public:
             qDebug()<<"无法读取标签数据";
             exit(0);
         }
-
+        /*
+         byte 0 - 3 : Magic Number(Not to be used)
+         byte 4 - 7 : Total number of labels in the dataset
+        */
         int magic_number = 0;
         int number_of_labels = 0;
         f.read((char*)&magic_number,sizeof(magic_number));
