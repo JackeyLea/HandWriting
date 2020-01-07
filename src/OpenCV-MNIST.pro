@@ -50,7 +50,10 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    knn.hpp \
+    mainwindow.h \
+    svm.hpp \
+    training.hpp
 
 FORMS += \
     mainwindow.ui

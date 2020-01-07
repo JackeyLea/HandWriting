@@ -1,46 +1,41 @@
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent)
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
-    ui.setupUi(this);
+    ui->setupUi(this);
     qDebug()<<"程序启动成功";
+    //ui->buttonSVMTest->setEnabled(false);
+    ui->buttonKNNTest->setEnabled(false);
 
-    train = new Training();
-}
-
-void MainWindow::changeEvent(QEvent *e)
-{
-    QMainWindow::changeEvent(e);
-    switch (e->type()) {
-    case QEvent::LanguageChange:
-        ui.retranslateUi(this);
-        break;
-    default:
-        break;
-    }
-}
-
-void MainWindow::on_buttonTrainKNN_clicked()
-{
-    train->knnTrain();
-    qDebug()<<"KNN训练完成";
-}
-
-void MainWindow::on_buttonTestKNN_clicked()
-{
-    ui.doubleSpinBox->setValue(train->testMnistKNN());
-    qDebug()<<"KNN测试完成";
+    svmtt = new SVMTT();
 }
 
 void MainWindow::on_buttonSVMTrain_clicked()
 {
-    train->svmTrain();
+    ui->buttonSVMTrain->setEnabled(false);
+    svmtt->svmTrain();
     qDebug()<<"SVM训练完成";
+    ui->buttonSVMTest->setEnabled(true);
 }
 
 void MainWindow::on_buttonSVMTest_clicked()
 {
-    ui.doubleSpinBox->setValue(train->testMnistSVM());
+    ui->doubleSpinBox->setValue(svmtt->testSVM());
     qDebug()<<"SVM测试完成";
+    ui->buttonSVMTest->setEnabled(false);
+    ui->buttonSVMTrain->setEnabled(true);
+}
+
+void MainWindow::on_buttonKNNTrain_clicked()
+{
+    //train->knnTrain();
+    qDebug()<<"KNN训练完成";
+}
+
+void MainWindow::on_buttonKNNTest_clicked()
+{
+    //ui->doubleSpinBox->setValue(train->testMnistKNN());
+    qDebug()<<"KNN测试完成";
 }
