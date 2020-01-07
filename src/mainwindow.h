@@ -7,6 +7,7 @@
 #include <QFileDialog>
 
 #include "svm.hpp"
+#include "knn.hpp"
 
 class MainWindow : public QMainWindow
 {
@@ -28,6 +29,7 @@ private:
     Ui::MainWindow *ui;
 
     SVMTT *svmtt;
+    KNNTT *knntt;
 };
 
 #endif // MAINWINDOW_H

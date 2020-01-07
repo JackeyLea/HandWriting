@@ -6,10 +6,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     qDebug()<<"程序启动成功";
-    //ui->buttonSVMTest->setEnabled(false);
+    ui->buttonSVMTest->setEnabled(false);
     ui->buttonKNNTest->setEnabled(false);
 
     svmtt = new SVMTT();
+    knntt = new KNNTT();
 }
 
 void MainWindow::on_buttonSVMTrain_clicked()
@@ -30,12 +31,16 @@ void MainWindow::on_buttonSVMTest_clicked()
 
 void MainWindow::on_buttonKNNTrain_clicked()
 {
-    //train->knnTrain();
+    ui->buttonKNNTrain->setEnabled(false);
+    knntt->KNNTrain();
     qDebug()<<"KNN训练完成";
+    ui->buttonKNNTest->setEnabled(true);
 }
 
 void MainWindow::on_buttonKNNTest_clicked()
 {
-    //ui->doubleSpinBox->setValue(train->testMnistKNN());
+    ui->doubleSpinBox->setValue(knntt->testKNN());
     qDebug()<<"KNN测试完成";
+    ui->buttonKNNTest->setEnabled(false);
+    ui->buttonKNNTrain->setEnabled(true);
 }

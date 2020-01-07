@@ -18,10 +18,10 @@ using namespace std;
 using namespace cv;
 using namespace cv::ml;
 
-class SVMTT{
+class KNNTT{
 public:
-    SVMTT(){}
-    ~SVMTT(){}
+    KNNTT(){}
+    ~KNNTT(){}
 
     int reverseDigit(int num){
         unsigned char c1,c2,c3,c4;
@@ -131,7 +131,7 @@ public:
 
         qDebug()<<"KNN训练开始。。。";
         Ptr<ml::KNearest> knn = ml::KNearest::create();
-        Ptr<ml::KNearest> tdata = ml::TrainData::create(train_images,ml::ROW_SAMPLE,train_labels);
+        Ptr<ml::TrainData> tdata = ml::TrainData::create(train_images,ml::ROW_SAMPLE,train_labels);
         knn->train(tdata);
         knn->setDefaultK(5);
         knn->setIsClassifier(true);
@@ -174,12 +174,11 @@ public:
             if(digit == actual){
                 correct++;
             }
-
-            qDebug()<<"已成功识别："<<correct;
-            float rate = correct/total *100.0;
-            qDebug()<<"识别准确率是："<<rate;
-            return rate;
         }
+        qDebug()<<"已成功识别："<<correct;
+        float rate = correct/total *100.0;
+        qDebug()<<"识别准确率是："<<rate;
+        return rate;
     }
 };
 

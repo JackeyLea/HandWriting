@@ -180,11 +180,11 @@ public:
         svm->setKernel(ml::SVM::LINEAR);
         svm->setDegree(5);
         svm->setGamma(0.01);
-        svm->setCoef0(1.0);
-        svm->setC(10.0);
-        svm->setNu(0.5);
-        svm->setP(0.1);
-        svm->setTermCriteria(TermCriteria(TermCriteria::EPS,1000,FLT_EPSILON));
+        //svm->setCoef0(1.0);
+        //svm->setC(10.0);
+        //svm->setNu(0.5);
+        //svm->setP(0.1);
+        //svm->setTermCriteria(TermCriteria(TermCriteria::EPS,1000,FLT_EPSILON));
 
         qDebug()<<"SVM训练开始。。。";
         Ptr<ml::TrainData> tdata = ml::TrainData::create(train_images,ml::ROW_SAMPLE,train_labels);
