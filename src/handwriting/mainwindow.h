@@ -1,29 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QApplication>
-#include <QDesktopServices>
-#include <QUrl>
-#include <QMessageBox>
-#include <QString>
-#include <QFileDialog>
-#include <QWidget>
-#include <QPaintEvent>
-#include <QMouseEvent>
-#include <QResizeEvent>
-#include <QIODevice>
-#include <QPainter>
-#include <QPoint>
-#include <QTimer>
-
-#include <opencv2/core.hpp>
-#include <opencv2/opencv.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/imgcodecs.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/ml.hpp>
-
 #include "base.hpp"
 
 using namespace cv;
