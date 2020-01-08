@@ -19,5 +19,8 @@
         <file>resources/themes/darkblack.qss</file>
         <file>resources/themes/gray.qss</file>
         <file>resources/themes/light.qss</file>
+        <file>resources/icons/pen.svg</file>
+        <file>resources/icons/go.svg</file>
+        <file>resources/icons/pen.ico</file>
     </qresource>
 </RCC>

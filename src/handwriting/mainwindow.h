@@ -2,10 +2,12 @@
 #define MAINWINDOW_H
 
 #include "base.hpp"
+#include "knn.hpp"
+#include "svm.hpp"
+#include "Processing.hpp"
 
 using namespace cv;
 using namespace cv::ml;
-using namespace Silkworm;
 
 namespace Ui {
 class MainWindow;
@@ -50,8 +52,12 @@ protected:
 
     void mouseMoveEvent(QMouseEvent *event);
 
+    void resizeEvent(QResizeEvent *event);
+
 private:
     Ui::MainWindow *ui;
+    SVMTT *svmtt;
+    KNNTT *knntt;
 
     QPixmap pix;
     QPoint lastPoint;

@@ -44,8 +44,11 @@ SOURCES += \
         mainwindow.cpp
 
 HEADERS += \
+        Processing.hpp \
         base.hpp \
-        mainwindow.h
+        knn.hpp \
+        mainwindow.h \
+        svm.hpp
 
 FORMS += \
         mainwindow.ui

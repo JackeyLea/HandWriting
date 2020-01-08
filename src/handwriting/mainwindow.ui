@@ -38,7 +38,7 @@
      <x>0</x>
      <y>0</y>
      <width>530</width>
-     <height>26</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -73,39 +73,73 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionClear"/>
+   <addaction name="separator"/>
    <addaction name="actionGo"/>
+   <addaction name="separator"/>
+   <addaction name="actionExit"/>
   </widget>
   <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/icons/open.svg</normaloff>:/resources/icons/open.svg</iconset>
+   </property>
    <property name="text">
     <string>Open</string>
    </property>
   </action>
   <action name="actionSave">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/icons/save.svg</normaloff>:/resources/icons/save.svg</iconset>
+   </property>
    <property name="text">
     <string>Save</string>
    </property>
   </action>
   <action name="actionExit">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/icons/exit.svg</normaloff>:/resources/icons/exit.svg</iconset>
+   </property>
    <property name="text">
     <string>Exit</string>
    </property>
   </action>
   <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/icons/about.svg</normaloff>:/resources/icons/about.svg</iconset>
+   </property>
    <property name="text">
     <string>About</string>
    </property>
   </action>
   <action name="actionAbout_Qt">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/icons/qt.png</normaloff>:/resources/icons/qt.png</iconset>
+   </property>
    <property name="text">
     <string>About Qt</string>
    </property>
   </action>
   <action name="actionGithub">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/icons/github.svg</normaloff>:/resources/icons/github.svg</iconset>
+   </property>
    <property name="text">
     <string>Github</string>
    </property>
   </action>
   <action name="actionClear">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/icons/clear.svg</normaloff>:/resources/icons/clear.svg</iconset>
+   </property>
    <property name="text">
     <string>Clear</string>
    </property>
@@ -113,7 +147,7 @@
   <action name="actionGo">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/resources/icons/next.svg</normaloff>:/resources/icons/next.svg</iconset>
+     <normaloff>:/resources/icons/go.svg</normaloff>:/resources/icons/go.svg</iconset>
    </property>
    <property name="text">
     <string>Go</string>

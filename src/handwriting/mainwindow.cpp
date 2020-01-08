@@ -7,31 +7,18 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    svmtt = new SVMTT();
+    knntt = new KNNTT();
+
     pix = QPixmap(this->width(),this->height());
     pix.fill(Qt::white);
 }
 
 MainWindow::~MainWindow()
 {
+    delete svmtt;
+    delete knntt;
     delete ui;
-}
-
-int MainWindow::knnPredicted(cv::Mat img)
-{
-    Ptr<ml::KNearest> knn = Algorithm::load<ml::KNearest>("knn.yml");
-
-    float predicted = knn->predict(img);
-
-    return static_cast<int>(predicted);
-}
-
-int MainWindow::svmPredicted(Mat img)
-{
-    Ptr<SVM> svm1 = StatModel::load<SVM>("svm.xml");
-
-    float predicted = svm1->predict(img);
-
-    return static_cast<int>(predicted);
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -52,6 +39,13 @@ void MainWindow::on_actionSave_triggered()
      if(filePath.isEmpty()){
          QMessageBox::information(this,tr("Tips"),tr("Nothing"),QMessageBox::Ok);
          return;
+     }
+     bool isOk = pix.save(filePath);
+     if(isOk){
+         QMessageBox::information(this,tr("Tips"),tr("Picture has been saved"),QMessageBox::Ok);
+     }
+     else{
+         QMessageBox::information(this,tr("Tips"),tr("Something was wrong"),QMessageBox::Ok);
      }
 }
 
@@ -118,6 +112,13 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    pix = QPixmap(event->size());
+    pix.fill(Qt::white);
+    update();
+}
+
 void MainWindow::on_actionClear_triggered()
 {
     pix.fill(Qt::white);
@@ -126,7 +127,10 @@ void MainWindow::on_actionClear_triggered()
 
 void MainWindow::on_actionGo_triggered()
 {
-    QPixmap writen = this->grab(this->centralWidget()->geometry());
-
-    cv::Mat img = Silkworm::QPixmapToCvMat(writen,true);
+    QImage img = pix.toImage();
+    Mat matImg = toMat(img);
+    if(matImg.empty()){
+        QMessageBox::information(this,tr("Waring"),tr("No image data"),QMessageBox::Ok);
+        return;
+    }
 }
