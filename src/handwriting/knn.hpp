@@ -180,6 +180,22 @@ public:
         qDebug()<<"识别准确率是："<<rate;
         return rate;
     }
+
+    int predict(Mat inImg){
+        QFile file("knn.xml");
+        if(!file.exists()){
+            qDebug()<<"没有训练结果文件";
+            return 0.0;
+        }
+
+        qDebug()<<"开始导入KNN训练结果文件";
+        Ptr<ml::KNearest> knn = Algorithm::load<ml::KNearest>("knn.xml");
+        qDebug()<<"已成功导入KNN训练结果文件";
+
+        float predicted = knn->predict(inImg);
+        int digit = static_cast<int>(predicted);
+        return digit;
+    }
 };
 
 #endif // KNN_HPP

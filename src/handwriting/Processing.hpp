@@ -46,12 +46,21 @@ public:
 
     //灰度化图像
     Mat toGrayImg(Mat srcImg) {
+        qDebug()<<"toGrayImg()";
+        qDebug()<<"Source image channels is : "<<srcImg.channels();
         Mat grayImg;
-        if (srcImg.channels() == 3) {
-            cvtColor(srcImg, grayImg, COLOR_BGR2GRAY);
-        } else {
+        switch(srcImg.channels()){
+        case 1:
             grayImg = srcImg;
+            break;
+        case 3:
+            cvtColor(srcImg,grayImg,COLOR_BGR2GRAY);
+            break;
+        case 4:
+            cvtColor(srcImg,grayImg,COLOR_BGRA2GRAY);
+            break;
         }
+        qDebug()<<"Gray image channels is: "<<grayImg.channels();
         return grayImg;
     }
 

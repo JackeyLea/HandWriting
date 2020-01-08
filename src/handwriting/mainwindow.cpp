@@ -127,10 +127,14 @@ void MainWindow::on_actionClear_triggered()
 
 void MainWindow::on_actionGo_triggered()
 {
+    Processing pro;
     QImage img = pix.toImage();
     Mat matImg = toMat(img);
-    if(matImg.empty()){
-        QMessageBox::information(this,tr("Waring"),tr("No image data"),QMessageBox::Ok);
-        return;
-    }
+    Mat gray = pro.toGrayImg(matImg);
+    Mat bin = pro.toBinaryImg(gray);
+    bin.convertTo(bin,CV_32F);
+    bin.resize(28,28);
+    int result = knntt->predict(matImg);
+    QMessageBox::information(this,tr("Result"),QString::number(result),QMessageBox::Ok);
+    on_actionClear_triggered();
 }
