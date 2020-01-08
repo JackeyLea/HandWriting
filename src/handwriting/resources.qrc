@@ -1,69 +1,23 @@
 <RCC>
     <qresource prefix="/">
         <file>resources/icons/open.svg</file>
-        <file>resources/icons/sqlite.svg</file>
-        <file>resources/icons/spider.svg</file>
-        <file>resources/icons/leader.png</file>
-        <file>resources/icons/database.svg</file>
-        <file>resources/icons/paste.svg</file>
-        <file>resources/icons/delete.svg</file>
         <file>resources/icons/tip.svg</file>
-        <file>resources/icons/cut.svg</file>
-        <file>resources/icons/undo.svg</file>
-        <file>resources/icons/guest.svg</file>
-        <file>resources/icons/ok.svg</file>
-        <file>resources/icons/view.svg</file>
-        <file>resources/icons/lock.svg</file>
-        <file>resources/icons/previous.svg</file>
-        <file>resources/icons/random.svg</file>
         <file>resources/icons/clear.svg</file>
-        <file>resources/icons/redo.svg</file>
-        <file>resources/icons/oracle.svg</file>
-        <file>resources/icons/model.svg</file>
-        <file>resources/icons/email.svg</file>
-        <file>resources/icons/custom.svg</file>
-        <file>resources/icons/docker.svg</file>
-        <file>resources/icons/edit.svg</file>
-        <file>resources/icons/build.svg</file>
         <file>resources/icons/github.svg</file>
-        <file>resources/icons/reset.svg</file>
         <file>resources/icons/close.svg</file>
-        <file>resources/icons/buffer.svg</file>
-        <file>resources/icons/export.svg</file>
-        <file>resources/icons/next.svg</file>
-        <file>resources/icons/connect.svg</file>
         <file>resources/icons/remove.svg</file>
-        <file>resources/icons/save-as.svg</file>
         <file>resources/icons/about.svg</file>
-        <file>resources/icons/bluetooth.svg</file>
-        <file>resources/icons/update.svg</file>
-        <file>resources/icons/history.svg</file>
         <file>resources/icons/qt.png</file>
-        <file>resources/icons/import.svg</file>
-        <file>resources/icons/opensource.svg</file>
         <file>resources/icons/setting.svg</file>
-        <file>resources/icons/select-all.svg</file>
         <file>resources/icons/user.jpg</file>
         <file>resources/icons/add.svg</file>
         <file>resources/icons/save.svg</file>
         <file>resources/icons/warning.svg</file>
-        <file>resources/icons/copy.svg</file>
-        <file>resources/icons/function.svg</file>
         <file>resources/icons/exit.svg</file>
-        <file>resources/icons/pinboard.svg</file>
-        <file>resources/icons/autoplay.svg</file>
-        <file>resources/icons/print.svg</file>
         <file>resources/icons/folder.svg</file>
         <file>resources/icons/cancel.svg</file>
-        <file>resources/themes/highlighter.qss</file>
         <file>resources/themes/darkblack.qss</file>
         <file>resources/themes/gray.qss</file>
-        <file>resources/themes/coolblack.qss</file>
         <file>resources/themes/light.qss</file>
-        <file>resources/themes/seablue.qss</file>
-        <file>resources/themes/black.qss</file>
-        <file>resources/themes/lightblack.qss</file>
-        <file>resources/themes/darkgray.qss</file>
-        <file>resources/themes/lightwhite.qss</file>
     </qresource>
 </RCC>
