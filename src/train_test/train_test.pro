@@ -37,12 +37,12 @@ win32:{
 INCLUDEPATH += C:\Libraries\opencv\build\include
 
 LIBS += -LC:\Libraries\opencv\build\x64\mingw\bin \
-        -lopencv_core412 \
-        -lopencv_dnn412 \
-        -lopencv_highgui412 \
-        -lopencv_imgcodecs412 \
-        -lopencv_imgproc412 \
-        -lopencv_ml412
+        -lopencv_core420 \
+        -lopencv_dnn420 \
+        -lopencv_highgui420 \
+        -lopencv_imgcodecs420 \
+        -lopencv_imgproc420 \
+        -lopencv_ml420
 }
 
 SOURCES += \

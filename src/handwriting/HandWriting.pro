@@ -5,7 +5,6 @@
 QT       += core gui
 QT       += widgets
 
-TARGET = HandWriting
 TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
@@ -44,11 +43,7 @@ SOURCES += \
         mainwindow.cpp
 
 HEADERS += \
-        Processing.hpp \
-        base.hpp \
-        knn.hpp \
         mainwindow.h \
-        svm.hpp
 
 FORMS += \
         mainwindow.ui

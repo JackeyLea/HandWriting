@@ -7,17 +7,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    svmtt = new SVMTT();
-    knntt = new KNNTT();
-
     pix = QPixmap(this->width(),this->height());
     pix.fill(Qt::white);
 }
 
 MainWindow::~MainWindow()
 {
-    delete svmtt;
-    delete knntt;
     delete ui;
 }
 
@@ -127,14 +122,13 @@ void MainWindow::on_actionClear_triggered()
 
 void MainWindow::on_actionGo_triggered()
 {
-    Processing pro;
-    QImage img = pix.toImage();
-    Mat matImg = toMat(img);
-    Mat gray = pro.toGrayImg(matImg);
-    Mat bin = pro.toBinaryImg(gray);
-    bin.convertTo(bin,CV_32F);
-    bin.resize(28,28);
-    int result = knntt->predict(matImg);
-    QMessageBox::information(this,tr("Result"),QString::number(result),QMessageBox::Ok);
-    on_actionClear_triggered();
+//    QImage img = pix.toImage();
+//    Mat matImg = toMat(img);
+//    Mat gray = toGrayImg(matImg);
+//    Mat bin = toBinaryImg(gray);
+//    bin.convertTo(bin,CV_32F);
+//    bin.resize(28,28);
+//    int result = knntt->predict(matImg);
+//    QMessageBox::information(this,tr("Result"),QString::number(result),QMessageBox::Ok);
+//    on_actionClear_triggered();
 }

@@ -1,10 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "base.hpp"
-#include "knn.hpp"
-#include "svm.hpp"
-#include "Processing.hpp"
+#include <opencv2/opencv.hpp>
+#include <QMainWindow>
+#include <QString>
+#include <QDebug>
+#include <QMessageBox>
+#include <QPainter>
+#include <QResizeEvent>
+#include <QDesktopServices>
+#include <QFileDialog>
 
 using namespace cv;
 using namespace cv::ml;
@@ -25,6 +30,8 @@ public:
     int knnPredicted(Mat img);
 
     int svmPredicted(cv::Mat img);
+
+    int torchPredicted(cv::Mat img);
 
 private slots:
     void on_actionOpen_triggered();
@@ -56,8 +63,6 @@ protected:
 
 private:
     Ui::MainWindow *ui;
-    SVMTT *svmtt;
-    KNNTT *knntt;
 
     QPixmap pix;
     QPoint lastPoint;

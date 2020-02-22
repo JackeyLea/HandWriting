@@ -40,6 +40,7 @@ term_crit – SVM的迭代训练过程的中止条件，解决部分受约束二
 #include <QDebug>
 #include <QFile>
 #include <QDir>
+#include <QTime>
 
 #include <opencv2/opencv.hpp>
 
@@ -222,6 +223,8 @@ public:
         qDebug()<<"准确率为："<<rate<<"%...";
         return rate;
     }
+
+
 };
 
 #endif
