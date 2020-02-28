@@ -84,16 +84,6 @@ KNN test spend 198272 ms
 
 3、识别所画的数字（仅限数字）
 
-## Version
-
-2020-01-08
-
-合并到OpenCV-MNIST项目
-
-2019-8-24:
-
-创建项目
-
 ## 参考资料
 
 [1]https://blog.csdn.net/qianbin3200896/article/details/102937131
