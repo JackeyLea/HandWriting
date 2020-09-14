@@ -79,7 +79,7 @@ inline Mat toMat(QImage image){
 inline cv::Mat getGrayImg(cv::Mat img) {
     cv::Mat grayImg;
     if(img.channels() ==4){
-        //cv::cvtColor(img,grayImg,cv);
+        cv::cvtColor(img,grayImg,cv::COLOR_BGRA2GRAY);
     }
     if (img.channels() == 3) {
         cv::cvtColor(img, grayImg, cv::COLOR_BGR2GRAY);

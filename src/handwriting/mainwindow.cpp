@@ -31,8 +31,9 @@ int MainWindow::knnPredicted(Mat img)
     return digit;
 }
 
-int MainWindow::svmPredicted(Mat img)
+int MainWindow::svmPredicted(Mat &img)
 {
+    qDebug()<<"predict"<<img.type();
     qDebug()<<"svm预测开始";
     qDebug()<<"开始导入svm模型";
     Ptr<ml::SVM> svm =Algorithm::load<ml::SVM>("svm.xml");
@@ -56,6 +57,7 @@ void MainWindow::on_actionOpen_triggered()
 
     pix.load(filePath);
     img = cv::imread(filePath.toStdString());
+    imshow("testing",img);
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -161,9 +163,27 @@ void MainWindow::on_actionGo_triggered()
 //    cv::resize(matImg,matImg,Size(28,28));
 //    Mat gray = getGrayImg(matImg);
 //    qDebug()<<"gray "<<gray.type();
+    Mat temp=Mat(1,28*28,CV_8UC1);
+    QImage drawImg = pix.toImage();
+    Mat matImg= toMat(drawImg);
+    qDebug()<<matImg.type()<<CV_8UC4;
+    Mat mat3c = Mat(matImg.cols,matImg.rows,CV_8UC1);
+    cvtColor(matImg,mat3c,COLOR_BGRA2GRAY);
+    qDebug()<<mat3c.type()<<CV_8UC1;
 
-    qDebug()<<img.type();
-    Mat b;
-    img.convertTo(b,CV_32S);
-    qDebug()<<b.type();
+    cv::resize(mat3c,mat3c,Size(28,28));
+    imshow("mat3c",mat3c);
+    for(int i=0;i<mat3c.cols;i++){
+        for(int j=0;j<mat3c.rows;j++){
+            uchar a = mat3c.at<uchar>(i,j);
+            qDebug()<<a;
+            temp.at<uchar>(0,i*28+j)=a;
+        }
+    }
+
+    temp.convertTo(temp,CV_32F);
+    qDebug()<<temp.size().width<<temp.type()<<CV_32FC4;
+    imshow("temp",temp);
+    int result = svmPredicted(temp);
+    qDebug()<<"result is: "<<result;
 }

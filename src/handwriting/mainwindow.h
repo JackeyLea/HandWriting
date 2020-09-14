@@ -35,7 +35,7 @@ public:
 
     int knnPredicted(Mat img);
 
-    int svmPredicted(cv::Mat img);
+    int svmPredicted(Mat &img);
 
     int torchPredicted(cv::Mat img);
 

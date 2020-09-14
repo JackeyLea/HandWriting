@@ -108,17 +108,19 @@ public:
         width = reverseDigit(width);
 
         Mat train_images = Mat(number_of_images,height*width,CV_8UC1);
-        Mat digit=Mat(height,width,CV_8UC1);
-        for(int i=0;i<number_of_images;i++){
+        for(int i=0;i<number_of_images;i++){//第几张图
             for(int r=0;r<height;++r){
                 for(int c=0;c<width;++c){
                     unsigned char temp =0;
                     f.read((char*)&temp,sizeof(temp));
                     train_images.at<uchar>(i,r*width+c)=(int)temp;
-                    digit.at<uchar>(r,c)=(int)temp;
+                    if(i==0){
+                        Mat digit=Mat(height,width,CV_8UC1);
+                        digit.at<uchar>(r,c)=(int)temp;
+                        imwrite("digit.png",digit);//输出第一张图片
+                    }
                 }
             }
-            //if(i==0) imwrite("digit.png",digit);//输出第一张图片
         }
         train_images.convertTo(train_images,CV_32F);
         f.close();

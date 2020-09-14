@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    w.setWindowTitle(QObject::tr("O"));
+    w.setWindowTitle(QObject::tr("Train and Test"));
     w.resize(250,250);
     w.show();
     return a.exec();
