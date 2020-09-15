@@ -8,14 +8,7 @@
 
 #include "base.hpp"
 
-#include <QMainWindow>
-#include <QString>
-#include <QDebug>
-#include <QMessageBox>
-#include <QPainter>
-#include <QResizeEvent>
-#include <QDesktopServices>
-#include <QFileDialog>
+
 
 using namespace cv;
 using namespace cv::ml;
@@ -56,23 +49,8 @@ private slots:
 
     void on_actionGo_triggered();
 
-protected:
-    void paintEvent(QPaintEvent *event);
-
-    void mousePressEvent(QMouseEvent *event);
-
-    void mouseReleaseEvent(QMouseEvent *event);
-
-    void mouseMoveEvent(QMouseEvent *event);
-
-    void resizeEvent(QResizeEvent *event);
-
 private:
     Ui::MainWindow *ui;
-
-    QPixmap pix;
-    QPoint lastPoint;
-    QPoint endPoint;
 
     cv::Mat img;
 };

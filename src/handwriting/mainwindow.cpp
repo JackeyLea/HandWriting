@@ -6,9 +6,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    pix = QPixmap(this->width(),this->height());
-    pix.fill(Qt::black);
 }
 
 MainWindow::~MainWindow()
@@ -100,54 +97,6 @@ void MainWindow::on_actionAbout_Qt_triggered()
 void MainWindow::on_actionGithub_triggered()
 {
     QDesktopServices::openUrl(QUrl("https://github.com/JackeyLea/HandWriting"));
-}
-
-void MainWindow::paintEvent(QPaintEvent *event)
-{
-    Q_UNUSED(event)
-
-    QPainter pp(&pix);
-    QPen pen;
-    pen.setColor(Qt::white);
-    pen.setWidth(10);
-    pp.setPen(pen);
-    pp.drawLine(lastPoint,endPoint);
-    pp.setRenderHint(QPainter::HighQualityAntialiasing,true);
-
-    lastPoint = endPoint;
-    QPainter painter(this);
-    painter.drawPixmap(0,0,pix);
-}
-
-void MainWindow::mousePressEvent(QMouseEvent *event)
-{
-    if(event->button() == Qt::LeftButton){
-        lastPoint = event->pos();
-    }
-    endPoint = lastPoint;
-}
-
-void MainWindow::mouseReleaseEvent(QMouseEvent *event)
-{
-    if(event->button() == Qt::LeftButton){
-        endPoint = event->pos();
-        update();
-    }
-}
-
-void MainWindow::mouseMoveEvent(QMouseEvent *event)
-{
-    if(event->buttons() & Qt::LeftButton){
-        endPoint = event->pos();
-        update();
-    }
-}
-
-void MainWindow::resizeEvent(QResizeEvent *event)
-{
-    pix = QPixmap(event->size());
-    pix.fill(Qt::black);
-    update();
 }
 
 void MainWindow::on_actionClear_triggered()

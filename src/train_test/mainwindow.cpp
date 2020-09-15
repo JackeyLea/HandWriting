@@ -5,13 +5,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    qDebug()<<"程序启动成功";
-    ui->buttonSVMTest->setEnabled(false);
-    ui->buttonKNNTest->setEnabled(false);
-
-    svmtt = new SVMTT();
-    knntt = new KNNTT();
 }
 
 MainWindow::~MainWindow()
@@ -23,13 +16,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_buttonSVMTrain_clicked()
 {
-    time_start = (double)clock();
     ui->buttonSVMTrain->setEnabled(false);
     svmtt->svmTrain();
     qDebug()<<"SVM训练完成";
     ui->buttonSVMTest->setEnabled(true);
-    time_end = (double)clock();
-    qDebug()<<"SVM training spend "<<(time_end-time_start)/1000.0<<"ms";
 }
 
 void MainWindow::on_buttonSVMTest_clicked()
