@@ -53,14 +53,19 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     svmtt.cpp \
-    drawing.cpp
+    drawing.cpp \
+    knntt.cpp
 
 HEADERS += \
         mainwindow.h \
     svmtt.h \
     global.hpp \
-    drawing.h
+    drawing.h \
+    knntt.h
 
 FORMS += \
         mainwindow.ui \
     drawing.ui
+
+RESOURCES += \
+    resource.qrc

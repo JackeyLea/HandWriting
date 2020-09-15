@@ -15,6 +15,10 @@ public:
     explicit Drawing(QWidget *parent = 0);
     ~Drawing();
 
+    QImage getImage();
+    bool saveImage(QString filePath);
+    void clearImage();
+
 protected:
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);

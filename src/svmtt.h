@@ -47,14 +47,14 @@ public:
 
     void setRunMode(RUNMODE mode);
     float getRate();
+    int getPredictResult();
 
     void reset();
 
     Mat readImagesData();//读取图像数据集
     Mat readLabelsData();//读取标记数据集
 
-    void trainImagesData();
-    void testImagesData();
+    int predict(Mat img);
 
 protected:
     void run();
@@ -62,6 +62,8 @@ protected:
 private:
     RUNMODE _run_mode;
     float _rate;
+    int _predictResult;
+
     double time_start;
     double time_end;
 };

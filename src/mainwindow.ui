@@ -84,6 +84,20 @@
        <property name="spacing">
         <number>0</number>
        </property>
+       <item row="8" column="0" colspan="2">
+        <widget class="QPlainTextEdit" name="textLog">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="btnTrain">
+         <property name="text">
+          <string>Train</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="labelType">
          <property name="text">
@@ -126,24 +140,52 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="0" colspan="2">
+       <item row="7" column="0" colspan="2">
         <widget class="QLabel" name="labelLog">
          <property name="text">
           <string>Log</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="0" colspan="2">
-        <widget class="QPlainTextEdit" name="textLog">
-         <property name="readOnly">
-          <bool>true</bool>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="btnSave">
+         <property name="text">
+          <string>Save</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="btnTrain">
+       <item row="5" column="0">
+        <widget class="QPushButton" name="btnAbout">
          <property name="text">
-          <string>Train</string>
+          <string>About</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QPushButton" name="btnAboutQt">
+         <property name="text">
+          <string>About Qt</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QPushButton" name="btnGo">
+         <property name="text">
+          <string>Go</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QPushButton" name="btnIndex">
+         <property name="text">
+          <string>Index</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QPushButton" name="btnClear">
+         <property name="text">
+          <string>Clear</string>
          </property>
         </widget>
        </item>
@@ -151,16 +193,6 @@
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>878</width>
-     <height>22</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

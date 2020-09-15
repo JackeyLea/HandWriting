@@ -1,36 +1,63 @@
-#ifndef BASE_HPP
-#define BASE_HPP
+/*
+ * 2020-09-15
+ * gloabl function for all
+ */
 
+#ifndef GLOBAL_HPP
+#define GLOBAL_HPP
+
+#include <QString>
+#include <QDebug>
+#include <QFile>
+#include <QDir>
+#include <QTime>
+#include <QMainWindow>
+#include <QMessageBox>
+#include <QPainter>
+#include <QResizeEvent>
+#include <QDesktopServices>
+#include <QFileDialog>
+#include <QWidget>
+#include <QThread>
+#include <QFrame>
 #include <QApplication>
 #include <QCloseEvent>
 #include <QDebug>
 #include <QDesktopServices>
 #include <QDir>
 #include <QFile>
-#include <QFileDialog>
-#include <QHeaderView>
 #include <QIcon>
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonParseError>
-#include <QJsonValue>
 #include <QLabel>
-#include <QMainWindow>
-#include <QMessageBox>
-#include <QPainter>
-#include <QString>
 #include <QUrl>
-#include <QWidget>
+
+#include <opencv2/opencv.hpp>
 
 #include <iostream>
+#include <fstream>
+#include <ostream>
 #include <string>
 #include <vector>
 
-#include "opencv2/opencv.hpp"
-
 using namespace cv;
+using namespace cv::ml;
 using namespace std;
+
+enum RUNMODE{
+    TRAIN,
+    TEST,
+    STOP
+};
+
+//big-endian to little-endian
+inline int reverseDigit(int num){
+    unsigned char c1,c2,c3,c4;
+    c1=num&255;
+    c2=(num>>8)&255;
+    c3=(num>>16)&255;
+    c4=(num>>24)&255;
+
+    return ((int)c1<<24)+((int)c2<<16)+((int)c3<<8)+c4;
+}
 
 inline QString loadTheme(QString themeName){
     QString themeCtx;
@@ -56,25 +83,16 @@ inline QImage toQImage(Mat img){
 
 inline Mat toMat(QImage image){
     Mat mat;
-    //qDebug() << image.format();
-    switch(image.format())
-    {
-    case QImage::Format_ARGB32:
-    case QImage::Format_RGB32:
-    case QImage::Format_ARGB32_Premultiplied:
+    if(image.format() == QImage::Format_ARGB32 || image.format() == QImage::Format_RGB32||image.format() == QImage::Format_ARGB32_Premultiplied){
         mat = cv::Mat(image.height(), image.width(), CV_8UC4, (void*)image.constBits(), image.bytesPerLine());
-        break;
-    case QImage::Format_RGB888:
+    }else if(image.format() == QImage::Format_RGB888){
         mat = cv::Mat(image.height(), image.width(), CV_8UC3, (void*)image.constBits(), image.bytesPerLine());
         cv::cvtColor(mat, mat, COLOR_BGR2RGB);
-        break;
-    case QImage::Format_Indexed8:
+    }else if(image.format()== QImage::Format_Indexed8){
         mat = cv::Mat(image.height(), image.width(), CV_8UC1, (void*)image.constBits(), image.bytesPerLine());
-        break;
     }
     return mat;
 }
-
 
 inline cv::Mat getGrayImg(cv::Mat img) {
     cv::Mat grayImg;
@@ -234,4 +252,4 @@ inline cv::Mat getShadowYResult(cv::Mat bin) {
     return result;
 }
 
-#endif // BASE_HPP
+#endif // GLOBAL_HPP

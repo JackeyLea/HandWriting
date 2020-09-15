@@ -7,6 +7,8 @@ Drawing::Drawing(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    lastPoint=endPoint=QPoint(-10,-10);
+
     pix = QPixmap(this->width(),this->height());
     pix.fill(Qt::black);
 }
@@ -14,6 +16,23 @@ Drawing::Drawing(QWidget *parent) :
 Drawing::~Drawing()
 {
     delete ui;
+}
+
+QImage Drawing::getImage()
+{
+    return pix.toImage();
+}
+
+bool Drawing::saveImage(QString filePath)
+{
+    return pix.save(filePath);
+}
+
+void Drawing::clearImage()
+{
+    lastPoint=endPoint=QPoint(-10,-10);
+    pix.fill(Qt::black);
+    update();
 }
 
 void Drawing::paintEvent(QPaintEvent *event)

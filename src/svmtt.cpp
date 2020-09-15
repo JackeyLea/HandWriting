@@ -15,6 +15,11 @@ float SVMTT::getRate()
     return _rate;
 }
 
+int SVMTT::getPredictResult()
+{
+    return _predictResult;
+}
+
 void SVMTT::reset()
 {
     _run_mode = STOP;
@@ -131,6 +136,23 @@ Mat SVMTT::readLabelsData()
     labels.convertTo(labels,CV_32S);
     f.close();
     return labels;
+}
+
+int SVMTT::predict(Mat img)
+{
+    QFile file("svm.xml");
+    if(!file.exists()){
+        qDebug()<<"Train result doesn't exists";
+        return -1;
+    }
+    qDebug()<<"svm预测开始";
+    qDebug()<<"开始导入svm模型";
+    Ptr<ml::SVM> svm =Algorithm::load<ml::SVM>("svm.xml");
+    qDebug()<<"svm模型导入成功";
+    float res = svm->predict(img);
+    _predictResult = static_cast<int>(res);
+    qDebug()<<"svm预测结束";
+    return 0;
 }
 
 void SVMTT::run()
