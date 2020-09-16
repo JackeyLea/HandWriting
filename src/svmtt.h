@@ -45,22 +45,25 @@ class SVMTT : public QThread
 public:
     SVMTT();
 
-    void setRunMode(RUNMODE mode);
-    float getRate();
-    int getPredictResult();
+    void setRunMode(RUNMODE mode);//设置运行模式
+    float getRate();//获取训练结果的测试准确率
+    int getPredictResult();//获取预测结果
 
     void reset();
 
     Mat readImagesData();//读取图像数据集
     Mat readLabelsData();//读取标记数据集
 
-    int predict(Mat img);
+    int predict(Mat img);//预测图片的结果
 
 protected:
     void run();
 
 private:
     RUNMODE _run_mode;
+
+    ifstream f;//用于打开数据集二进制文件
+
     float _rate;
     int _predictResult;
 

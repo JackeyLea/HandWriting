@@ -21,14 +21,13 @@ MainWindow::~MainWindow()
 void MainWindow::on_btnTrain_clicked()
 {
     // type
+    qDebug()<<"当前训练的神经网络类型为："<<ui->boxType->currentText();
     switch(ui->boxType->currentIndex()){
     case 0:
-        qDebug()<<ui->boxType->currentText();
         knn->setRunMode(TRAIN);
         knn->start();
         break;
     case 1:
-        qDebug()<<ui->boxType->currentText();
         svm->setRunMode(TRAIN);
         svm->start();
         break;
@@ -37,6 +36,7 @@ void MainWindow::on_btnTrain_clicked()
 
 void MainWindow::on_btnTest_clicked()
 {
+    qDebug()<<"当前测试的神经网络类型为："<<ui->boxType->currentText();
     switch (ui->boxType->currentIndex()) {
     case 0:
         knn->setRunMode(TEST);
@@ -66,13 +66,14 @@ void MainWindow::on_btnSave_clicked()
         QMessageBox::information(this,tr("Tips"),tr("Something was wrong"),QMessageBox::Ok);
     }
 }
-
+//开始识别图片
 void MainWindow::on_btnGo_clicked()
 {
     int result = -1;
     Mat temp=Mat(1,28*28,CV_8UC1);
-    QImage drawImg = ui->wgtDrawing->getImage();
-    Mat matImg= toMat(drawImg);
+    //QImage drawImg = ui->wgtDrawing->getImage();
+    //Mat matImg= toMat(drawImg);
+    Mat matImg = imread("digit.png");
     Mat mat3c = Mat(matImg.cols,matImg.rows,CV_8UC1);
     cvtColor(matImg,mat3c,COLOR_BGRA2GRAY);
 
@@ -110,7 +111,6 @@ void MainWindow::on_btnAbout_clicked()
                         "<h2>A tool to recoginize handwriting character</h2>"
                         "<h3>JackeyLea@Github</h3>"
                         "<h3>Mail:1768478912@qq.com</h3>"
-                        "<h3>Phone:13812991101</h3>"
                         "<h4>If you got any problem please contact me</h4>");
     QMessageBox::information(this,tr("About"),msg,QMessageBox::Ok);
 }

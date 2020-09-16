@@ -6,11 +6,11 @@ Drawing::Drawing(QWidget *parent) :
     ui(new Ui::Drawing)
 {
     ui->setupUi(this);
-
+    //如果初始值为正值，会在界面绘制一个白色的点
     lastPoint=endPoint=QPoint(-10,-10);
 
     pix = QPixmap(this->width(),this->height());
-    pix.fill(Qt::black);
+    pix.fill(Qt::black);//填充图片的黑色背景
 }
 
 Drawing::~Drawing()
@@ -34,7 +34,7 @@ void Drawing::clearImage()
     pix.fill(Qt::black);
     update();
 }
-
+//绘图
 void Drawing::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
@@ -51,7 +51,7 @@ void Drawing::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.drawPixmap(0,0,pix);
 }
-
+//鼠标按下
 void Drawing::mousePressEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton){
@@ -59,7 +59,7 @@ void Drawing::mousePressEvent(QMouseEvent *event)
     }
     endPoint = lastPoint;
 }
-
+//鼠标松开
 void Drawing::mouseReleaseEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton){
@@ -67,7 +67,7 @@ void Drawing::mouseReleaseEvent(QMouseEvent *event)
         update();
     }
 }
-
+//鼠标移动
 void Drawing::mouseMoveEvent(QMouseEvent *event)
 {
     if(event->buttons() & Qt::LeftButton){
@@ -75,7 +75,7 @@ void Drawing::mouseMoveEvent(QMouseEvent *event)
         update();
     }
 }
-
+//如果界面的尺寸发生了调整
 void Drawing::resizeEvent(QResizeEvent *event)
 {
     pix = QPixmap(event->size());

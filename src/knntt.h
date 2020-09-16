@@ -28,6 +28,8 @@ protected:
 
 private:
     RUNMODE _run_mode;
+    ifstream f;
+
     float _rate;
     int _predictResult;
     double time_start;

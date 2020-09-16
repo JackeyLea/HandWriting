@@ -22,10 +22,7 @@
 #include <QFrame>
 #include <QApplication>
 #include <QCloseEvent>
-#include <QDebug>
 #include <QDesktopServices>
-#include <QDir>
-#include <QFile>
 #include <QIcon>
 #include <QLabel>
 #include <QUrl>
@@ -48,7 +45,7 @@ enum RUNMODE{
     STOP
 };
 
-//big-endian to little-endian
+//数字大端转换为小段
 inline int reverseDigit(int num){
     unsigned char c1,c2,c3,c4;
     c1=num&255;
@@ -58,29 +55,27 @@ inline int reverseDigit(int num){
 
     return ((int)c1<<24)+((int)c2<<16)+((int)c3<<8)+c4;
 }
-
+//加载主题文件
 inline QString loadTheme(QString themeName){
     QString themeCtx;
     QFile file(QString(":/resources/themes/%1.qss").arg(themeName));
-    qDebug()<<"theme file path is:"<<file.fileName();
     if(file.open(QIODevice::Text|QIODevice::ReadOnly)){
         QTextStream readIn(&file);
         themeCtx = readIn.readAll();
-    }
-    else{
+    }else{
         qDebug()<<"Cannot open file: "<<file.errorString();
     }
     file.close();
 
     return themeCtx;
 }
-
+//cv::Mat转换为QImage
 inline QImage toQImage(Mat img){
     QImage qimg=QImage(static_cast<unsigned char*>(img.data),
                        img.cols,img.rows,img.cols*img.channels(),QImage::Format_RGB888);
     return qimg;
 }
-
+//QImage转换为cv::Mat
 inline Mat toMat(QImage image){
     Mat mat;
     if(image.format() == QImage::Format_ARGB32 || image.format() == QImage::Format_RGB32||image.format() == QImage::Format_ARGB32_Premultiplied){
@@ -93,22 +88,20 @@ inline Mat toMat(QImage image){
     }
     return mat;
 }
-
+//将图片处理为灰度图
 inline cv::Mat getGrayImg(cv::Mat img) {
     cv::Mat grayImg;
     if(img.channels() ==4){
         cv::cvtColor(img,grayImg,cv::COLOR_BGRA2GRAY);
-    }
-    if (img.channels() == 3) {
+    }else if (img.channels() == 3) {
         cv::cvtColor(img, grayImg, cv::COLOR_BGR2GRAY);
     } else {
         grayImg = img;
     }
-    qDebug()<<"Result channel is: "<<grayImg.channels();
 
     return grayImg;
 }
-
+//灰度图二值化
 inline cv::Mat getBinImg(cv::Mat grayImg, int threholdValue=-1) {
     cv::Mat result;
     int     middle = 0;
@@ -131,7 +124,8 @@ inline cv::Mat getBinImg(cv::Mat grayImg, int threholdValue=-1) {
     } else {
         middle = threholdValue;
     }
-    qDebug() << "Average pixel is: " << middle;
+    //qDebug() << "Average pixel is: " << middle;
+
     //以平均值二值化图片
     threshold(grayImg, result, middle, 255, cv::THRESH_BINARY);
 
@@ -147,107 +141,6 @@ inline cv::Mat getBinImg(cv::Mat grayImg, int threholdValue=-1) {
                 white++;
         }
     }
-
-    return result;
-}
-
-inline cv::Mat getShadowXResult(cv::Mat bin) {
-    assert(!bin.empty());
-    //是否为白色或者黑色根据二值图像的处理得来
-    cv::Mat painty(bin.size(), CV_8UC1, cv::Scalar(255)); //初始化为全白
-
-    //水平投影
-    int *pointcount = new int[ bin.rows ]; //在二值图片中记录行中特征点的个数
-    memset(pointcount, 0, bin.rows * 4);   //注意这里需要进行初始化
-
-    for (int i = 0; i < bin.rows; i++) {
-        for (int j = 0; j < bin.cols; j++) {
-            if (bin.at<uchar>(i, j) == 0) {
-                pointcount[ i ]++; //记录每行中黑色点的个数 //水平投影按行在y轴上的投影
-            }
-        }
-    }
-
-    for (int i = 0; i < bin.rows; i++) {
-        for (int j = 0; j < pointcount[ i ]; j++) //根据每行中黑色点的个数，进行循环
-        {
-            painty.at<uchar>(i, j) = 0;
-        }
-    }
-
-    cv::imshow("y",painty);
-
-    cv::Mat            result;
-    int                     startindex = 0;
-    int                     endindex   = 0;
-    bool                  inblock    = false; //是否遍历到字符位置
-
-    for (int i = 0; i < painty.rows; i++) {
-        if (!inblock && pointcount[ i ] != 0) //进入有字符区域
-        {
-            inblock    = true;
-            startindex = i;
-            qDebug() << "startindex:" << startindex;
-        }
-        if (inblock && pointcount[ i ] == 0) //进入空白区
-        {
-            endindex    = i;
-            inblock     = false;
-            cv::Mat roi = bin.rowRange(
-                startindex, endindex + 1); //从而记录从开始到结束行的位置，即可进行行切分
-            result=roi;
-            break;
-        }
-    }
-    delete[] pointcount;
-
-    return result;
-}
-
-inline cv::Mat getShadowYResult(cv::Mat bin) {
-    assert(!bin.empty());
-
-    cv::Mat paintx(bin.size(), CV_8UC1, cv::Scalar(255)); //创建一个全白图片，用作显示
-
-    int *pointcount = new int[ bin.cols ];
-    memset(pointcount, 0, bin.cols * 4);
-
-    for (int i = 0; i < bin.rows; i++) {
-        for (int j = 0; j < bin.cols; j++) {
-            if (bin.at<uchar>(i, j) == 0) {
-                pointcount[ j ]++; //垂直投影按列在x轴进行投影
-            }
-        }
-    }
-    for (int i = 0; i < bin.cols; i++) {
-        for (int j = 0; j < pointcount[ i ]; j++) {
-            paintx.at<uchar>(bin.rows - 1 - j, i) = 0; //翻转到下面，便于观看
-        }
-    }
-
-    cv::Mat              result;
-    int                  startindex = 0;
-    int                  endindex   = 0;
-    bool                 inblock    = false; //是否遍历到字符位置
-
-    for (int i = 0; i < paintx.cols; i++) {
-        if (!inblock && pointcount[ i ] != 0) //进入有字符区域
-        {
-            inblock    = true;
-            startindex = i;
-            qDebug() << "startindex:" << startindex;
-        }
-        if (inblock && pointcount[ i ] == 0) //进入空白区
-        {
-            endindex    = i;
-            inblock     = false;
-            cv::Mat roi = bin.colRange(
-                startindex, endindex + 1); //从而记录从开始到结束行的位置，即可进行行切分
-            result=roi;
-        }
-    }
-
-    delete[] pointcount;
 
     return result;
 }
