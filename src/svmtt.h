@@ -54,7 +54,7 @@ public:
     Mat readImagesData();//读取图像数据集
     Mat readLabelsData();//读取标记数据集
 
-    int predict(Mat img);//预测图片的结果
+    int predict(Mat &img);//预测图片的结果
 
 protected:
     void run();

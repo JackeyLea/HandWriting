@@ -71,21 +71,41 @@ void MainWindow::on_btnGo_clicked()
 {
     int result = -1;
     Mat temp=Mat(1,28*28,CV_8UC1);
-    //QImage drawImg = ui->wgtDrawing->getImage();
-    //Mat matImg= toMat(drawImg);
-    Mat matImg = imread("digit.png");
+    QImage drawImg = ui->wgtDrawing->getImage();
+    drawImg = drawImg.convertToFormat(QImage::Format_RGB32);
+    Mat matImg= toMat(drawImg);
+    qDebug()<<matImg.type();
+    //Mat matImg = imread("digit.png");
+    qDebug()<<"1"<<QString("type: %1,cols: %2,rows: %3,dims: %4,channels: %5").arg(matImg.type())
+              .arg(matImg.cols).arg(matImg.rows).arg(matImg.dims)
+              .arg(matImg.channels());
+    //return;
     Mat mat3c = Mat(matImg.cols,matImg.rows,CV_8UC1);
     cvtColor(matImg,mat3c,COLOR_BGRA2GRAY);
+    qDebug()<<"2"<<QString("type: %1,cols: %2,rows: %3,dims: %4,channels: %5").arg(mat3c.type())
+              .arg(mat3c.cols).arg(mat3c.rows).arg(mat3c.dims)
+              .arg(mat3c.channels());
 
     cv::resize(mat3c,mat3c,Size(28,28));
+    qDebug()<<"3"<<QString("type: %1,cols: %2,rows: %3,dims: %4,channels: %5").arg(mat3c.type())
+              .arg(mat3c.cols).arg(mat3c.rows).arg(mat3c.dims)
+              .arg(mat3c.channels());
+
     for(int i=0;i<mat3c.cols;i++){
         for(int j=0;j<mat3c.rows;j++){
             uchar a = mat3c.at<uchar>(i,j);
             temp.at<uchar>(0,i*28+j)=a;
         }
     }
-
+    qDebug()<<"4"<<QString("type: %1,cols: %2,rows: %3,dims: %4,channels: %5").arg(temp.type())
+              .arg(temp.cols).arg(temp.rows).arg(temp.dims)
+              .arg(temp.channels());
     temp.convertTo(temp,CV_32F);
+    qDebug()<<"5"<<QString("type: %1,cols: %2,rows: %3,dims: %4,channels: %5").arg(temp.type())
+              .arg(temp.cols).arg(temp.rows).arg(temp.dims)
+              .arg(temp.channels());
+
+    return;
     switch (ui->boxType->currentIndex()) {
     case 0:
         result = knn->predict(temp);

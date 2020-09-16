@@ -136,7 +136,7 @@ Mat KNNTT::readLabelsData()
     return labels;
 }
 
-int KNNTT::predict(Mat img)
+int KNNTT::predict(Mat &img)
 {
     qDebug()<<"knn预测开始";
     QFile file("knn.xml");

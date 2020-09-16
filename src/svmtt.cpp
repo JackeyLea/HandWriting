@@ -135,7 +135,7 @@ Mat SVMTT::readLabelsData()
     return labels;
 }
 
-int SVMTT::predict(Mat img)
+int SVMTT::predict(Mat &img)
 {
     qDebug()<<"svm预测开始";
 

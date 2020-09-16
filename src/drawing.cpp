@@ -10,6 +10,7 @@ Drawing::Drawing(QWidget *parent) :
     lastPoint=endPoint=QPoint(-10,-10);
 
     pix = QPixmap(this->width(),this->height());
+    qDebug()<<pix.size();
     pix.fill(Qt::black);//填充图片的黑色背景
 }
 
@@ -38,6 +39,7 @@ void Drawing::clearImage()
 void Drawing::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
+    qDebug()<<this->size();
 
     QPainter pp(&pix);
     QPen pen;
@@ -78,7 +80,8 @@ void Drawing::mouseMoveEvent(QMouseEvent *event)
 //如果界面的尺寸发生了调整
 void Drawing::resizeEvent(QResizeEvent *event)
 {
-    pix = QPixmap(event->size());
+    //pix = QPixmap(event->size());
+    pix.scaled(event->size());
     pix.fill(Qt::black);
     update();
 }
