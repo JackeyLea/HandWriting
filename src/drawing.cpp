@@ -39,7 +39,7 @@ void Drawing::clearImage()
 void Drawing::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
-    qDebug()<<this->size();
+    //qDebug()<<this->size();
 
     QPainter pp(&pix);
     QPen pen;
@@ -80,8 +80,8 @@ void Drawing::mouseMoveEvent(QMouseEvent *event)
 //如果界面的尺寸发生了调整
 void Drawing::resizeEvent(QResizeEvent *event)
 {
-    //pix = QPixmap(event->size());
-    pix.scaled(event->size());
+    pix = QPixmap(event->size());
+    //pix.scaled(event->size());
     pix.fill(Qt::black);
     update();
 }

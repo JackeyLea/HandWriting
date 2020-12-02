@@ -6,49 +6,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    knn = new KNNTT;
-    svm = new SVMTT;
 }
 
 MainWindow::~MainWindow()
 {
-    delete knn;
-    delete svm;
     delete ui;
-}
-
-void MainWindow::on_btnTrain_clicked()
-{
-    // type
-    qDebug()<<"当前训练的神经网络类型为："<<ui->boxType->currentText();
-    switch(ui->boxType->currentIndex()){
-    case 0:
-        knn->setRunMode(TRAIN);
-        knn->start();
-        break;
-    case 1:
-        svm->setRunMode(TRAIN);
-        svm->start();
-        break;
-    }
-}
-
-void MainWindow::on_btnTest_clicked()
-{
-    qDebug()<<"当前测试的神经网络类型为："<<ui->boxType->currentText();
-    switch (ui->boxType->currentIndex()) {
-    case 0:
-        knn->setRunMode(TEST);
-        knn->start();
-        break;
-    case 1:
-        svm->setRunMode(TEST);
-        svm->start();
-        break;
-    default:
-        break;
-    }
 }
 
 void MainWindow::on_btnSave_clicked()
@@ -69,55 +31,54 @@ void MainWindow::on_btnSave_clicked()
 //开始识别图片
 void MainWindow::on_btnGo_clicked()
 {
-    int result = -1;
-    Mat temp=Mat(1,28*28,CV_8UC1);
     QImage drawImg = ui->wgtDrawing->getImage();
-    drawImg = drawImg.convertToFormat(QImage::Format_RGB32);
-    Mat matImg= toMat(drawImg);
-    qDebug()<<matImg.type();
-    //Mat matImg = imread("digit.png");
-    qDebug()<<"1"<<QString("type: %1,cols: %2,rows: %3,dims: %4,channels: %5").arg(matImg.type())
-              .arg(matImg.cols).arg(matImg.rows).arg(matImg.dims)
-              .arg(matImg.channels());
-    //return;
-    Mat mat3c = Mat(matImg.cols,matImg.rows,CV_8UC1);
-    cvtColor(matImg,mat3c,COLOR_BGRA2GRAY);
-    qDebug()<<"2"<<QString("type: %1,cols: %2,rows: %3,dims: %4,channels: %5").arg(mat3c.type())
-              .arg(mat3c.cols).arg(mat3c.rows).arg(mat3c.dims)
-              .arg(mat3c.channels());
+    cv::Mat img = toMat(drawImg);
+    //cv::imshow("drawImg",img);//correct
+    QString msg =QString("draw img ->type: %1,cols: %2,rows: %3,dims: %4,channels: %5")
+              .arg(img.type())
+              .arg(img.cols).arg(img.rows).arg(img.dims)
+              .arg(img.channels());
+    //QMessageBox::information(this,tr("message"),msg,QMessageBox::Ok);
 
-    cv::resize(mat3c,mat3c,Size(28,28));
-    qDebug()<<"3"<<QString("type: %1,cols: %2,rows: %3,dims: %4,channels: %5").arg(mat3c.type())
-              .arg(mat3c.cols).arg(mat3c.rows).arg(mat3c.dims)
-              .arg(mat3c.channels());
+    cv::Mat gray;
+    switch(img.channels()){
+    case 3:
+        cv::cvtColor(img,gray,COLOR_RGB2GRAY);
+        break;
+    case 4:
+        cv::cvtColor(img,gray,COLOR_RGBA2GRAY);
+        break;
+    }
+    //cv::imshow("gray",gray);//correct
+    cv::Mat bin=getBinImg(gray);
+    //cv::imshow("bin",bin);//correct
+    cv::Mat binResult;
+    cv::resize(bin,binResult,cv::Size(28,28));
+    //cv::imshow("bin result",binResult);
 
-    for(int i=0;i<mat3c.cols;i++){
-        for(int j=0;j<mat3c.rows;j++){
-            uchar a = mat3c.at<uchar>(i,j);
+    cv::Mat temp(28,28,CV_8UC1);
+    for(int i=0;i<binResult.cols;i++){
+        for(int j=0;j<binResult.rows;j++){
+            uchar a = binResult.at<uchar>(i,j);
             temp.at<uchar>(0,i*28+j)=a;
         }
     }
-    qDebug()<<"4"<<QString("type: %1,cols: %2,rows: %3,dims: %4,channels: %5").arg(temp.type())
-              .arg(temp.cols).arg(temp.rows).arg(temp.dims)
-              .arg(temp.channels());
-    temp.convertTo(temp,CV_32F);
-    qDebug()<<"5"<<QString("type: %1,cols: %2,rows: %3,dims: %4,channels: %5").arg(temp.type())
-              .arg(temp.cols).arg(temp.rows).arg(temp.dims)
-              .arg(temp.channels());
+    cv::Mat temp2(1,28*28,CV_32F);
+    temp.convertTo(temp2,CV_32F);
 
-    return;
+    int result=-1;
     switch (ui->boxType->currentIndex()) {
     case 0:
-        result = knn->predict(temp);
-        if(result>=0){
-            result = knn->getPredictResult();
-        }
+//        result = knn->predict(temp2);
+//        if(result>=0){
+//            result = knn->getPredictResult();
+//        }
         break;
     case 1:
-        result = svm->predict(temp);
-        if(result>=0){
-            result = knn->getPredictResult();
-        }
+//        result = svm->predict(temp2);
+//        if(result>=0){
+//            result = knn->getPredictResult();
+//        }
         break;
     default:
         break;

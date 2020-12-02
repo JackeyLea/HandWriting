@@ -84,20 +84,6 @@
        <property name="spacing">
         <number>0</number>
        </property>
-       <item row="8" column="0" colspan="2">
-        <widget class="QPlainTextEdit" name="textLog">
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="btnTrain">
-         <property name="text">
-          <string>Train</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="labelType">
          <property name="text">
@@ -119,75 +105,60 @@
          </item>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="btnTest">
-         <property name="text">
-          <string>Test</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="labelRate">
-         <property name="text">
-          <string>Rate</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="lineRate">
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0" colspan="2">
-        <widget class="QLabel" name="labelLog">
-         <property name="text">
-          <string>Log</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
+       <item row="2" column="0">
         <widget class="QPushButton" name="btnSave">
          <property name="text">
           <string>Save</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="0">
+       <item row="3" column="0">
         <widget class="QPushButton" name="btnAbout">
          <property name="text">
           <string>About</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="3" column="1">
         <widget class="QPushButton" name="btnAboutQt">
          <property name="text">
           <string>About Qt</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="2" column="1">
         <widget class="QPushButton" name="btnGo">
          <property name="text">
           <string>Go</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
+       <item row="4" column="0">
         <widget class="QPushButton" name="btnIndex">
          <property name="text">
           <string>Index</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="4" column="1">
         <widget class="QPushButton" name="btnClear">
          <property name="text">
           <string>Clear</string>
          </property>
         </widget>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>

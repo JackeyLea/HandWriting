@@ -26,6 +26,7 @@
 #include <QIcon>
 #include <QLabel>
 #include <QUrl>
+#include <QPlainTextEdit>
 
 #include <opencv2/opencv.hpp>
 
@@ -45,16 +46,6 @@ enum RUNMODE{
     STOP
 };
 
-//数字大端转换为小段
-inline int reverseDigit(int num){
-    unsigned char c1,c2,c3,c4;
-    c1=num&255;
-    c2=(num>>8)&255;
-    c3=(num>>16)&255;
-    c4=(num>>24)&255;
-
-    return ((int)c1<<24)+((int)c2<<16)+((int)c3<<8)+c4;
-}
 //加载主题文件
 inline QString loadTheme(QString themeName){
     QString themeCtx;

@@ -52,16 +52,12 @@ LIBS += -L/usr/lib \
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    svmtt.cpp \
-    drawing.cpp \
-    knntt.cpp
+    drawing.cpp
 
 HEADERS += \
         mainwindow.h \
-    svmtt.h \
     global.hpp \
-    drawing.h \
-    knntt.h
+    drawing.h
 
 FORMS += \
         mainwindow.ui \
