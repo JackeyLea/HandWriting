@@ -7,11 +7,16 @@ Drawing::Drawing(QWidget *parent) :
 {
     ui->setupUi(this);
     //如果初始值为正值，会在界面绘制一个白色的点
-    lastPoint=endPoint=QPoint(-10,-10);
+    lastPoint=endPoint=QPoint(-20,-20);
 
     pix = QPixmap(this->width(),this->height());
-    qDebug()<<pix.size();
     pix.fill(Qt::black);//填充图片的黑色背景
+
+    pen.setColor(Qt::white);
+    pen.setWidth(24);
+
+    font.setWeight(5);
+    font.setPixelSize(2);
 }
 
 Drawing::~Drawing()
@@ -31,7 +36,7 @@ bool Drawing::saveImage(QString filePath)
 
 void Drawing::clearImage()
 {
-    lastPoint=endPoint=QPoint(-10,-10);
+    lastPoint=endPoint=QPoint(-20,-20);
     pix.fill(Qt::black);
     update();
 }
@@ -42,10 +47,8 @@ void Drawing::paintEvent(QPaintEvent *event)
     //qDebug()<<this->size();
 
     QPainter pp(&pix);
-    QPen pen;
-    pen.setColor(Qt::white);
-    pen.setWidth(10);
     pp.setPen(pen);
+    pp.setFont(font);
     pp.drawLine(lastPoint,endPoint);
     pp.setRenderHint(QPainter::HighQualityAntialiasing,true);
 
@@ -81,7 +84,6 @@ void Drawing::mouseMoveEvent(QMouseEvent *event)
 void Drawing::resizeEvent(QResizeEvent *event)
 {
     pix = QPixmap(event->size());
-    //pix.scaled(event->size());
     pix.fill(Qt::black);
     update();
 }

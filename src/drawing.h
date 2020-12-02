@@ -19,7 +19,7 @@ class Drawing : public QWidget
     Q_OBJECT
 
 public:
-    explicit Drawing(QWidget *parent = 0);
+    explicit Drawing(QWidget *parent = nullptr);
     ~Drawing();
 
     QImage getImage();//获取当前画板的图片
@@ -40,6 +40,9 @@ private:
 
     QPoint lastPoint;//鼠标上一次的位置
     QPoint endPoint;//鼠标当前的位置
+
+    QPen pen;
+    QFont font;
 };
 
 #endif // DRAWING_H

@@ -7,55 +7,16 @@
     <x>0</x>
     <y>0</y>
     <width>878</width>
-    <height>565</height>
+    <height>582</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="layoutGCentral">
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
-     <number>0</number>
-    </property>
-    <property name="spacing">
-     <number>0</number>
-    </property>
+   <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QGroupBox" name="groupBoxDrawing">
-      <property name="title">
-       <string>Drawing</string>
-      </property>
-      <layout class="QGridLayout" name="layoutGDrawing">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="Drawing" name="wgtDrawing" native="true"/>
-       </item>
-      </layout>
-     </widget>
+     <widget class="Drawing" name="wgtDrawing" native="true"/>
     </item>
     <item row="0" column="1">
      <widget class="QGroupBox" name="groupBoxToolbox">
@@ -165,7 +126,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
