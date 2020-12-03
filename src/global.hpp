@@ -40,12 +40,6 @@ using namespace cv;
 using namespace cv::ml;
 using namespace std;
 
-enum RUNMODE{
-    TRAIN,
-    TEST,
-    STOP
-};
-
 //加载主题文件
 inline QString loadTheme(QString themeName){
     QString themeCtx;

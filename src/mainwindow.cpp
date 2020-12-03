@@ -34,43 +34,26 @@ void MainWindow::on_btnSave_clicked()
 //开始识别图片
 void MainWindow::on_btnGo_clicked()
 {
+    //先获取界面图片
     QImage drawImg = ui->wgtDrawing->getImage();
+    //调整图片尺寸
     QImage scaleImg = drawImg.scaled(28,28);
-    cv::Mat img = toMat(scaleImg);
+    cv::Mat img = toMat(scaleImg);//将QImage转换为cv::Mat
     //cv::imshow("drawImg",img);//correct
-    QString msg = QString("draw img ->type: %1,cols: %2,rows: %3,dims: %4,channels: %5")
-                      .arg(img.type())
-                      .arg(img.cols)
-                      .arg(img.rows)
-                      .arg(img.dims)
-                      .arg(img.channels());
-    //QMessageBox::information(this,tr("message"),msg,QMessageBox::Ok);
-
-    cv::Mat gray;
-    switch (img.channels())
-    {
-    case 3:
-        cv::cvtColor(img, gray, COLOR_RGB2GRAY);
-        break;
-    case 4:
-        cv::cvtColor(img, gray, COLOR_RGBA2GRAY);
-        break;
-    }
+    cv::Mat gray = getGrayImg(img);//灰度化图片
     //cv::imshow("gray",gray);//correct
-    cv::Mat bin = getBinImg(gray);
+    cv::Mat bin = getBinImg(gray);//二值化图片
     //cv::imshow("bin",bin);//correct
-    cv::Mat binResult;
-    cv::resize(bin, binResult, cv::Size(28, 28));
-    //cv::imshow("bin result",binResult);
 
+    //28*28 -> 1*784
     cv::Mat temp(1,28* 28, CV_8UC1);
-    for(int i=0;i<binResult.rows;i++){
-        for(int j=0;j<binResult.cols;j++){
-            uchar a=binResult.at<uchar>(i,j);
+    for(int i=0;i<bin.rows;i++){
+        for(int j=0;j<bin.cols;j++){
+            uchar a=bin.at<uchar>(i,j);
             temp.at<uchar>(0,i*28+j)=a;
         }
     }
-    temp.convertTo(temp,CV_32F);
+    temp.convertTo(temp,CV_32F);//调整格式
 
     int result = -1;
     float predicted;

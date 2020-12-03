@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QMessageBox>
 
 #include "opencv2/opencv.hpp"
 

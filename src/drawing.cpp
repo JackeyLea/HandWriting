@@ -33,7 +33,7 @@ bool Drawing::saveImage(QString filePath)
 {
     return pix.save(filePath);
 }
-
+//清空界面图片，以黑色填充
 void Drawing::clearImage()
 {
     lastPoint=endPoint=QPoint(-20,-20);
@@ -44,8 +44,8 @@ void Drawing::clearImage()
 void Drawing::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
-    //qDebug()<<this->size();
 
+    //先绘制在图片上
     QPainter pp(&pix);
     pp.setPen(pen);
     pp.setFont(font);
@@ -53,6 +53,7 @@ void Drawing::paintEvent(QPaintEvent *event)
     pp.setRenderHint(QPainter::HighQualityAntialiasing,true);
 
     lastPoint = endPoint;
+    //再绘制再界面上
     QPainter painter(this);
     painter.drawPixmap(0,0,pix);
 }

@@ -41,12 +41,8 @@ LIBS += -LC:\Libraries\opencv\build\x64\mingw\bin \
 }
 
 unix:{
-LIBS += -L/usr/lib \
-        -lopencv_core \
-        -lopencv_highgui \
-        -lopencv_imgcodecs \
-        -lopencv_imgproc \
-        -lopencv_ml
+INCLUDEPATH += /usr/include/opencv4
+LIBS += `pkg-config --libs opencv4`
 }
 
 SOURCES += \
